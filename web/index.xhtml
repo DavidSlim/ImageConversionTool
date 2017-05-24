@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <h:outputScript library="jss" name="jQuery v3.1.0.js"/>
+        <h:outputScript library="jss" name="jquery-ui.js"/>
+        <h:outputScript library="jss" name="my_js_methods.js"/>
+        <h:outputStylesheet library="css" name="view_style.css"/>
+        <title>Index</title>
+    </h:head>
+    <h:body>
+        Go to page<br/>
+        <h:form enctype="multipart/form-data">
+            <h:link value="Login Form" outcome="#{navigation.loginRedirect}"/><br/>
+            <h:inputFile label="Upload Image" p:type="file" p:accept="image/*" value="#{fileUpload.uploadedFile}">
+                <f:ajax listener="#{fileUpload.uploadMe()}"  render="img_display"/>
+            </h:inputFile>
+            <br>
+
+            </br>
+
+            <h:selectOneMenu value="#{loginController.login_gs.login_level}">
+                <f:selectItem itemValue="#{null}" itemLabel="--Select One--"/>
+                <f:selectItems value="#{loginLevel.level_list}"/>
+                <f:ajax render="login_level"/>
+            </h:selectOneMenu><br/>
+            <h:outputText id="login_level" value="#{loginController.login_gs.login_level}"/>
+            <br>
+
+            </br>
+            <h:graphicImage id="img_display" value="/images/#{fileUpload.image_show}" width="160" height="120" /><br/>
+            <h:dataTable var="pop" value="#{loginController.list_date_found}">
+                <h:column><f:facet name="header">Found Date</f:facet>#{pop}</h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>
+
